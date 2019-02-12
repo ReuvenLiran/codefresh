@@ -1,0 +1,89 @@
+@mixin status-style ($status) {
+  font-family: 'Material Icons';
+  width: 22px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 22px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+
+  @if $status == success {
+    content: "done";
+    background-color: #23b4a4;
+    color: #fff;
+  } @else if $status == error {
+    background-color: #e83f43;
+    content: "priority_high";
+    color: #fff;
+  }
+}
+
+.step-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+
+  &.success::before {
+    @include status-style(success);
+  }
+  &.error::before {
+    @include status-style(error);
+  }
+}
+.step {
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0 2px 20px 0 rgba(0,0,0,.1);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-left: 5px solid #ccc;
+  padding: 15px 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .step-img {
+    margin-right: 10px;
+    width: 30px;
+  }
+  .step-text {
+    h6 {
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      color: #000;
+      line-height: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    span {
+      font-size: 12px;
+      color: #000;
+      line-height: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+
+
+  // &::after {
+  //   font-family: 'Material Icons';
+  //   content: "done";
+  //   // content: "face";
+  // }
+  // &:before {
+  //   background-color: #23b4a4;
+  //   // content: "\E922";
+  //   content: '\e876';
+  //   // font-family: codefresh;
+  //   color: #fff;
+  //   width: 30px;
+  //   font-size: 11px;
+  //   text-align: center;
+  //   line-height: 22px;
+  // }
+}
