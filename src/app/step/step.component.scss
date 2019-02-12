@@ -21,11 +21,28 @@
   }
 }
 
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  70% {
+    opacity: .7;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .step-item {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
+  animation: fade-in 0.3s ease-in-out;
+
 
   &.success::before {
     @include status-style(success);
@@ -35,16 +52,7 @@
   }
 }
 .step {
-  // cursor: pointer;
-  // background-color: #fff;
-  // box-shadow: 0 2px 20px 0 rgba(0,0,0,.1);
-  // text-overflow: ellipsis;
-  // overflow: hidden;
   border-left: 5px solid #ccc;
-  // padding: 15px 10px;
-  // display: flex;
-  // justify-content: flex-start;
-  // align-items: center;
   .step-img {
     margin-right: 10px;
     width: 30px;
