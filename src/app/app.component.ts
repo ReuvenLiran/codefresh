@@ -1,13 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-
+const STAGE1 = {
+  stage: 'DEFAULT',
+  steps: [],
+  isFinal: false,
+};
+const STAGE2 = {
+  stage: 'BUILD&TEST',
+  steps: [],
+  isFinal: false,
+};
+const STAGE3 = {
+  stage: 'RELEASE',
+  steps: [],
+  isFinal: true,
+};
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
+
 export class AppComponent implements OnInit {
   title = 'test1';
-  steps = [];
+  stages = [STAGE1, STAGE2, STAGE3];
+  // steps = [];
+  // stage1 = "Default";
+  // isFinal = false;
   ngOnInit() {
     const steps = [ {
       name: 'ssss',
@@ -18,10 +37,25 @@ export class AppComponent implements OnInit {
     }, {
       name: 'aaaaa',
       status: 'error',
+    }, {
+      name: 'bbbbb',
+      status: 'success',
+    }, {
+      name: 'ccccc',
+      status: 'error',
     }];
-      for (let i = 0; i < steps.length; i++) {
-        setTimeout(() =>
-        this.steps.push(steps[i]), (i + 1) * 500)
+
+    const addStepToStage = (j, i) => {
+      setTimeout(() => {
+        this.stages[j].steps.push(steps[i])
+      }, (i + 1) * 500)
+    }
+    let j = 0;
+    for (let i = 0; i < steps.length; i++) {
+      addStepToStage(j, i);
+      if (i > 0 && i % 3 === 0) {
+        j++;
       }
+    }
   }
 }

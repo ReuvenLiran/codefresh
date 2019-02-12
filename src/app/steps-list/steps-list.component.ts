@@ -7,6 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StepsListComponent implements OnInit {
   @Input() steps;
+  @Input() stage;
+  @Input() isFinal;
+  
   constructor() { }
 
   ngOnInit() {
