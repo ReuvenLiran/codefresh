@@ -24,34 +24,43 @@ const STAGE3 = {
 export class AppComponent implements OnInit {
   title = 'test1';
   stages = [STAGE1, STAGE2, STAGE3];
+  isOpen = false;
+  selectedStep = {};
+
+  selectStep(id) {
+    console.log(id);
+    this.selectedStep = id;
+    this.isOpen = true;
+  }
+  
   ngOnInit() {
     const steps = [ {
       name: 'ssss',
       status: 'success',
-    }, { 
-      name: 'main_clone',
-      status: 'success',
-    }, {
-      name: 'aaaaa',
-      status: 'error',
-    }, {
-      name: 'bbbbb',
-      status: 'success',
-    }, {
-      name: 'ccccc',
-      status: 'error',
-    }, {
-      name: 'ssss',
-      status: 'success',
-    }, { 
-      name: 'main_clone',
-      status: 'success',
-    }, {
-      name: 'aaaaa',
-      status: 'error',
-    }, {
-      name: 'bbbbb',
-      status: 'success',
+    // }, { 
+    //   name: 'main_clone',
+    //   status: 'success',
+    // }, {
+    //   name: 'aaaaa',
+    //   status: 'error',
+    // }, {
+    //   name: 'bbbbb',
+    //   status: 'success',
+    // }, {
+    //   name: 'ccccc',
+    //   status: 'error',
+    // }, {
+    //   name: 'ssss',
+    //   status: 'success',
+    // }, { 
+    //   name: 'main_clone',
+    //   status: 'success',
+    // }, {
+    //   name: 'aaaaa',
+    //   status: 'error',
+    // }, {
+    //   name: 'bbbbb',
+    //   status: 'success',
     }, {
       name: 'ccccc',
       status: 'error',

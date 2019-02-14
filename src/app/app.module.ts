@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { StepComponent } from './step/step.component';
 import { StepsListComponent } from './steps-list/steps-list.component';
 import { StageComponent } from './stage/stage.component';
+import { TerminalComponent } from './terminal/terminal.component';
 const STAGE1 = {
   stage: 'DEFAULT',
   steps: [],
@@ -27,6 +28,7 @@ const STAGE3 = {
     StepsListComponent,
     StepComponent,
     StageComponent,
+    TerminalComponent,
   ],
   imports: [
     BrowserModule

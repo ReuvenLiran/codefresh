@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import getIcon from './icons';
 
 @Component({
@@ -7,10 +7,15 @@ import getIcon from './icons';
   styleUrls: ['./step.component.scss']
 })
 export class StepComponent implements OnInit {
+  @Output() selectStep = new EventEmitter();
   @Input() step;
   image;
   
   constructor() { }
+
+  selectStep1() {
+    this.selectStep.emit(this.step);
+  }
 
   ngOnInit() {
     this.image = getIcon(this.step.name);

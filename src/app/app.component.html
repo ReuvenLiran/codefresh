@@ -1,9 +1,16 @@
-<div class="stages">
-  <app-steps-list 
-    *ngFor="let stage of stages"
-    [stage]="stage.stage"
-    [isFinal]="stage.isFinal"
-    [steps]="stage.steps"
-  >
-  </app-steps-list>
+<div class="container">
+  <div class="stages">
+    <app-steps-list 
+      *ngFor="let stage of stages"
+      [stage]="stage.stage"
+      [isFinal]="stage.isFinal"
+      [steps]="stage.steps"
+      (selectStep)="selectStep($event)"
+    >
+    </app-steps-list>
+  </div>
+  <app-terminal 
+    [step]="selectedStep"
+    [isOpen]="isOpen"
+  ></app-terminal>
 </div>
