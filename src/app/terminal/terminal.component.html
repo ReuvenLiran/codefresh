@@ -1,9 +1,12 @@
 <div class="terminal {{ isOpen ? 'open' : 'close' }}">
   <div class="terminal-header">
-    <app-step
+    <app-inline-step 
+      className="terminal"
       [step]="step"
-    ></app-step>
+    ></app-inline-step>
     <button (click)="close()">X</button>
   </div>
-  <div [innerHtml]="log"></div>
+  <div class="terminal-cont">
+    <div class="logs" [innerHtml]="logs"></div>
+  </div>
 </div>

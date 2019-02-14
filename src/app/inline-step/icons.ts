@@ -6,7 +6,6 @@ const GIT_CLONE_STEP = 'main_clone';
 const DOCKER_BUILD_STEP = 'build';
 
 export default step => {
-  console.log(step, GIT_CLONE_STEP, step === GIT_CLONE_STEP);
   switch(step) {
     case GIT_CLONE_STEP:
       return GIT_ICON;

@@ -8,6 +8,33 @@
   z-index: 1;
   transition: transform 0.4s ease-in-out;
 
+  .terminal-header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    button {
+      border: none;
+      background-color: transparent;
+      color: black;
+    }
+  }
+  .terminal-cont {
+    .logs {
+      overflow: auto;
+      height: 100%;
+      list-style: none;
+      samp {
+        display: block;
+      }
+      .log-output {
+        display: block;
+      }
+    }
+    height: 300px;
+    margin: 16px 0;
+  }
+
   &.close {
     // height: 0px;
     transform: translateY(100%);

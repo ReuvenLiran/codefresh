@@ -2,7 +2,11 @@
   class="step-item {{ step.status }}"    
   (click)="selectStep1()"
 >
-  <div class="card step">
+  <app-inline-step 
+    className="card"
+    [step]="step"
+    ></app-inline-step>
+  <!-- <div class="card step">
     <img 
       class="step-img"
       src="{{ image }}"
@@ -11,5 +15,5 @@
       <h6>{{ step.name }}</h6>
       <span>{{ step.name }}</span>
     </div>
-  </div>
+  </div> -->
 </li>

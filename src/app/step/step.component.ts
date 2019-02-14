@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import getIcon from './icons';
+// import getIcon from './icons';
 
 @Component({
   selector: 'app-step',
@@ -9,7 +9,7 @@ import getIcon from './icons';
 export class StepComponent implements OnInit {
   @Output() selectStep = new EventEmitter();
   @Input() step;
-  image;
+  // image;
   
   constructor() { }
 
@@ -18,7 +18,7 @@ export class StepComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.image = getIcon(this.step.name);
+    // this.image = getIcon(this.step.name);
   }
 
 }

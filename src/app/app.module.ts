@@ -6,6 +6,7 @@ import { StepComponent } from './step/step.component';
 import { StepsListComponent } from './steps-list/steps-list.component';
 import { StageComponent } from './stage/stage.component';
 import { TerminalComponent } from './terminal/terminal.component';
+import { InlineStepComponent } from './inline-step/inline-step.component';
 const STAGE1 = {
   stage: 'DEFAULT',
   steps: [],
@@ -29,6 +30,7 @@ const STAGE3 = {
     StepComponent,
     StageComponent,
     TerminalComponent,
+    InlineStepComponent,
   ],
   imports: [
     BrowserModule
