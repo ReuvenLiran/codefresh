@@ -184,6 +184,10 @@ export class AppComponent implements OnInit {
     this.selectedStep = id;
     this.isOpen = true;
   }
+
+  closeTerminal() {
+    this.isOpen = false;
+  }
   
   ngOnInit() {
     this.logs = getLog('a', LOGS);

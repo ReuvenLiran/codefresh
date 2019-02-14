@@ -14,8 +14,6 @@ export class InlineStepComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this)
     this.image = getIcon(this.step.name);
   }
-
 }

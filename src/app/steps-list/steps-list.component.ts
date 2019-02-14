@@ -15,17 +15,8 @@ export class StepsListComponent implements OnInit {
 
   selectStep1(name) {
     this.selectStep.emit(name);
-    // console.log(name);
-    // this.selectStep.emit(name);
   }
 
   ngOnInit() {
-    console.log(this)
-    console.log(this.selectStep)
   }
-
-  // selectStep(id) {
-  //   console.log(id)
-  // }
-
 }

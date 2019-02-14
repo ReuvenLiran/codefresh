@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter  } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import AnsiUp from 'ansi_up';
 import { longStackSupport } from 'q';
@@ -9,17 +9,24 @@ import { Logs } from 'selenium-webdriver';
   templateUrl: './terminal.component.html',
   styleUrls: ['./terminal.component.scss']
 })
-export class TerminalComponent implements OnInit {
+export class TerminalComponent implements OnChanges, OnInit {
   @Input() isOpen;
   @Input() step;
   @Input() logs;
-  
+  @Output() closeTerminal = new EventEmitter();
+
   constructor(private sanitizer: DomSanitizer) { }
 
   close() {
-    this.isOpen = false;
+    console.log("close")
+    this.closeTerminal.emit();
+    // this.isOpen = false;
   }
   
+  ngOnChanges(changes) {
+    console.log(changes);
+  }
+
   ngOnInit() {
     this.logs = this.sanitizer.bypassSecurityTrustHtml(this.logs);
 
