@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import data from './json';
 import { getLog } from './utils';
 
 const STAGE1 = {
@@ -16,6 +17,8 @@ const STAGE3 = {
   steps: [],
   isFinal: true,
 };
+
+let stepsLogs = {};
 
 const LOGS = [
   "Evaluating execution condition \u001b[01;33mskip\u001b[0m \u001b[00;33m( '${{CF_SKIP_MAIN_CLONE}}' != 'true' )\u001b[0m: it evaluates to \u001b[01;32mtrue\u001b[0m\r\n",
@@ -181,6 +184,7 @@ export class AppComponent implements OnInit {
 
   selectStep(id) {
     console.log(id);
+    this.logs = getLog(id.name, stepsLogs[id.name]);
     this.selectedStep = id;
     this.isOpen = true;
   }
@@ -190,42 +194,48 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.logs = getLog('a', LOGS);
-    const steps = [ {
-      name: 'ssss',
-      status: 'success',
-    // }, { 
-    //   name: 'main_clone',
+    // const steps = [ {
+    //   name: 'ssss',
     //   status: 'success',
-    // }, {
-    //   name: 'aaaaa',
-    //   status: 'error',
-    // }, {
-    //   name: 'bbbbb',
-    //   status: 'success',
+    // // }, { 
+    // //   name: 'main_clone',
+    // //   status: 'success',
+    // // }, {
+    // //   name: 'aaaaa',
+    // //   status: 'error',
+    // // }, {
+    // //   name: 'bbbbb',
+    // //   status: 'success',
+    // // }, {
+    // //   name: 'ccccc',
+    // //   status: 'error',
+    // // }, {
+    // //   name: 'ssss',
+    // //   status: 'success',
+    // // }, { 
+    // //   name: 'main_clone',
+    // //   status: 'success',
+    // // }, {
+    // //   name: 'aaaaa',
+    // //   status: 'error',
+    // // }, {
+    // //   name: 'bbbbb',
+    // //   status: 'success',
     // }, {
     //   name: 'ccccc',
     //   status: 'error',
-    // }, {
-    //   name: 'ssss',
-    //   status: 'success',
-    // }, { 
-    //   name: 'main_clone',
-    //   status: 'success',
-    // }, {
-    //   name: 'aaaaa',
-    //   status: 'error',
-    // }, {
-    //   name: 'bbbbb',
-    //   status: 'success',
-    }, {
-      name: 'ccccc',
-      status: 'error',
-    }];
-
+    // }];
+    const {
+      steps,
+    } = data;
     const addStepToStage = (j, i) => {
       setTimeout(() => {
-        this.stages[j].steps.push(steps[i])
+        const {
+          logs,
+          name,
+        } = steps[i];
+        stepsLogs[name] = logs;
+        this.stages[j].steps.push({name})
       }, (i + 1) * 500)
     }
     let j = 0;
