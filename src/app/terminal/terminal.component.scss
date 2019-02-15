@@ -4,10 +4,15 @@
   background-color: black;
   position: fixed;
   color: white;
+  display: block;
+
   bottom: 0;
   z-index: 1;
   transition: transform 0.4s ease-in-out;
 
+  samp.log-output {
+    display: block;
+  }
   .terminal-header {
     background-color: white;
     display: flex;
@@ -23,11 +28,8 @@
     .logs {
       overflow: auto;
       height: 100%;
-      list-style: none;
-      samp {
-        display: block;
-      }
-      .log-output {
+      display: block;
+      * {
         display: block;
       }
     }

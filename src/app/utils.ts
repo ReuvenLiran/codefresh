@@ -1,15 +1,15 @@
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import AnsiUp from 'ansi_up';
+import { DomSanitizer } from '@angular/platform-browser';
+import { default as AnsiUp} from 'ansi_up';
 
 const formatLog = logs => {
   const ansi_up = new AnsiUp();
-  let sanitizer: DomSanitizer;
   
   const html = logs.reduce((total, log) => {
     const logHtml = ansi_up.ansi_to_html(log);
-    total += `<samp class="log-output">${logHtml}</samp>`;
+    total.push(logHtml);
+    // total += `<app-log log="${logHtml}"></app-log>`;
     return total;
-  }, '');
+  }, []);
   return html;
 };
 

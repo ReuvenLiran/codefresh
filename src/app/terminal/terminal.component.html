@@ -7,6 +7,11 @@
     <button (click)="close()">X</button>
   </div>
   <div class="terminal-cont">
-    <div class="logs" [innerHtml]="logs"></div>
+    <div class="logs">
+      <app-log
+        *ngFor="let log of logs"      
+        [log]="log">
+      </app-log>
+    </div>
   </div>
 </div>

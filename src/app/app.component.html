@@ -9,10 +9,18 @@
     >
     </app-steps-list>
   </div>
+  <app-metrics
+    [data]="chartData"
+    title="Memory Usage"
+    yLabel="Memory Usage"
+    xAccessor="time"
+    yAccessor="usage"
+  ></app-metrics>
   <app-terminal 
     [step]="selectedStep"
     [isOpen]="isOpen"
-    [logs]="logs"
     (closeTerminal)="closeTerminal()"
-  ></app-terminal>
+    [logs]="logs"
+  >
+  </app-terminal>
 </div>
