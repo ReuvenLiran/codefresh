@@ -1,5 +1,5 @@
 import { DomSanitizer } from '@angular/platform-browser';
-import { default as AnsiUp} from 'ansi_up';
+import AnsiUp from 'ansi_up';
 
 const formatLog = logs => {
   const ansi_up = new AnsiUp();

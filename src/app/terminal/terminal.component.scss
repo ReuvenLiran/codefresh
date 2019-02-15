@@ -24,7 +24,7 @@
       color: black;
     }
   }
-  .terminal-cont {
+  .terminal-body {
     .logs {
       overflow: auto;
       height: 100%;
@@ -46,4 +46,9 @@
     transform: translateY(0);
   }
 
+  .terminal-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }

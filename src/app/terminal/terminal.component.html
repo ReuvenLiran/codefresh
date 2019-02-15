@@ -6,12 +6,29 @@
     ></app-inline-step>
     <button (click)="close()">X</button>
   </div>
-  <div class="terminal-cont">
-    <div class="logs">
+  <div
+    class="terminal-body" 
+  >
+    <div class="logs" 
+      *ngIf="view == 'output'; else elseBlock"
+    >
       <app-log
         *ngFor="let log of logs"      
         [log]="log">
       </app-log>
     </div>
+    <ng-template #elseBlock>
+      <app-metrics 
+        [data]="metrics"
+        title="Memory Usage"
+        yLabel="Memory Usage"
+        xAccessor="time"
+        yAccessor="usage"
+      ></app-metrics>
+    </ng-template>
+  </div>
+  <div class="terminal-footer">
+    <button (click)="showOutput()">Output</button>
+    <button (click)="showMetrics()">Metrics</button>
   </div>
 </div>
