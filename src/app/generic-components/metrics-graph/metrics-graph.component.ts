@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import MG from 'metrics-graphics';
 
 @Component({
@@ -6,11 +6,12 @@ import MG from 'metrics-graphics';
   templateUrl: './metrics-graph.component.html',
   styleUrls: ['./metrics-graph.component.scss']
 })
-export class MetricsGraphComponent implements OnInit {
-  @Input() data;
+export class MetricsGraphComponent implements OnChanges {
+  @Input() data = [];
   @Input() yLabel;
   @Input() title;
   @Input() xAccessor;
+  @Input() id;
   @Input() yAccessor;
 
   constructor() { }
@@ -30,20 +31,23 @@ export class MetricsGraphComponent implements OnInit {
     if (secondsVal < 10) {seconds = "0"+seconds;}
     return hours+':'+minutes+':'+seconds;
   };
-  ngOnInit() {
-    MG.data_graphic({
-      title: this.title,
-      description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
-      data: this.data,
-      width: 600,
-      height: 200,
-      left: 70,
-      xax_format: this.formatSecondsToTime,
-      y_label: this.yLabel,
-      target: document.getElementById('chart'),
-      x_accessor: this.xAccessor,
-      y_accessor: this.yAccessor,
-    });
-  }
 
+  ngOnChanges(changes) {
+    if (changes.data.currentValue.length > 0) {
+      MG.data_graphic({
+        title: this.title,
+        description: "This is a simple line chart. You can remove the area portion by adding area: false to the arguments list.",
+        data: this.data,
+        width: 600,
+        height: 200,
+        left: 70,
+        xax_format: this.formatSecondsToTime,
+        y_label: this.yLabel,
+        target: document.getElementById(this.id),
+        x_accessor: this.xAccessor,
+        y_accessor: this.yAccessor,
+      });
+    }
+   
+  }
 }

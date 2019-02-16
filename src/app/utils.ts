@@ -39,9 +39,34 @@ const formatMemoryMetrics = memoryUsage => {
 let hashMemory = {};
 
 export const getMemoryMetrics = (step, memoryUsage) => {
-  console.log(memoryUsage)
   if (!hashMemory[step]) {
     hashMemory[step] = formatMemoryMetrics(memoryUsage);
   }
   return hashMemory[step];
+}
+
+
+
+const formatCPUMetrics = cpuUsage => {
+  if (!cpuUsage) return [];
+
+  const cpuUsageArr =  Object.entries(cpuUsage);
+  const [_, { time: firstTime }] = cpuUsageArr[0];
+  const result =  cpuUsageArr.map(([_, d]) => {
+    const { time, usage } = d;
+    return ({
+      time: (time - firstTime) / 1000, 
+      usage,
+    });
+  });
+  return result;
+};
+
+let hashCPU = {};
+
+export const getCPUMetrics = (step, cpuUsage) => {
+  if (!hashCPU[step]) {
+    hashCPU[step] = formatCPUMetrics(cpuUsage);
+  }
+  return hashCPU[step];
 }

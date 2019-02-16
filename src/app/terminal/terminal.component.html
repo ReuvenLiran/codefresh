@@ -14,13 +14,9 @@
       [logs]="logs"
     ></app-logs>
     <ng-template #elseBlock>
-      <app-metrics-graph
-        [data]="metrics"
-        title="Memory Usage"
-        yLabel="Memory Usage"
-        xAccessor="time"
-        yAccessor="usage"
-      ></app-metrics-graph>
+      <app-metrics
+        [metrics]="metrics"
+      ></app-metrics>
     </ng-template>
   </div>
   <div class="terminal-footer">

@@ -1,3 +1,20 @@
-<p>
-  metrics works!
-</p>
+<div class="metrics">
+  <app-metrics-graph
+    [data]="metrics.memory"
+    title="Memory Usage"
+    yLabel="Memory Usage"
+    xAccessor="time"
+    yAccessor="usage"
+    id="memory-metrics"
+  >
+  </app-metrics-graph>
+  <app-metrics-graph
+    [data]="metrics.cpu"
+    title="CPU Usage"
+    yLabel="CPU Usage"
+    xAccessor="time"
+    yAccessor="usage"
+    id="cpu-metrics"
+  >
+  </app-metrics-graph>
+</div>

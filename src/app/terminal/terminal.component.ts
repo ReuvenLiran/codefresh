@@ -9,7 +9,13 @@ export class TerminalComponent {
   @Input() isOpen;
   @Input() step;
   @Input() logs = [];
-  @Input() metrics = [];
+  @Input() metrics = {
+    memory: [],
+    cpu: [],
+  };
+  // @Input() memory = [];
+  // @Input() cpu = [];
+
   @Output() closeTerminal = new EventEmitter();
 
   view = 'output';
@@ -21,7 +27,6 @@ export class TerminalComponent {
   }
   showMetrics() {
     this.view = 'metrics';
-    console.log(this.view);
   }
   showOutput() {
     this.view = 'output';
