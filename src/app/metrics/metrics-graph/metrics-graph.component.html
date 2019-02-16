@@ -6,5 +6,7 @@
 <div 
   class="chart"
   *ngIf="chart">
-    <canvas id="canvas">{{ chart }}</canvas>
+    <canvas  
+     #ref
+    [id]="id">{{ chart }}</canvas>
 </div>

@@ -1,6 +1,7 @@
 <div class="metrics">
   <app-metrics-graph
-    [data]="metrics.memory"
+    [data]="metrics.memory.usage"
+    [labels]="metrics.memory.time"
     title="Memory Usage"
     yLabel="Memory Usage"
     xAccessor="time"
@@ -9,7 +10,9 @@
   >
   </app-metrics-graph>
   <app-metrics-graph
-    [data]="metrics.cpu"
+
+    [data]="metrics.cpu.usage"
+    [labels]="metrics.cpu.time"
     title="CPU Usage"
     yLabel="CPU Usage"
     xAccessor="time"

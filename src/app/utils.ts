@@ -23,7 +23,8 @@ export const getLog = (step, logs) => {
 }
 
 const formatMemoryMetrics = memoryUsage => {
-  if (!memoryUsage) return [];
+  const DEFAULT = { usage: [], time: [] }
+  if (!memoryUsage) return DEFAULT;
 
   const memoryUsageArr =  Object.entries(memoryUsage);
   const [_, { time: firstTime }] = memoryUsageArr[0];
@@ -42,7 +43,7 @@ const formatMemoryMetrics = memoryUsage => {
     total.usage.push(usage / 1000000);
     total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
     return total;
-  }, { usage: [], time: [] });
+  }, DEFAULT);
   return result;
 };
 
@@ -58,7 +59,8 @@ export const getMemoryMetrics = (step, memoryUsage) => {
 
 
 const formatCPUMetrics = cpuUsage => {
-  if (!cpuUsage) return [];
+  const DEFAULT = { usage: [], time: [] }
+  if (!cpuUsage) return DEFAULT;
 
   const cpuUsageArr =  Object.entries(cpuUsage);
   const [_, { time: firstTime }] = cpuUsageArr[0];
@@ -70,7 +72,7 @@ const formatCPUMetrics = cpuUsage => {
     total.usage.push(usage);
     total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
     return total;
-  }, { usage: [], time: [] });
+  }, DEFAULT);
   // const result =  cpuUsageArr.map(([_, d]) => {
   //   const { time, usage } = d;
   //   return ({

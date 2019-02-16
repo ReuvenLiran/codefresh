@@ -9,16 +9,17 @@
   <div
     class="terminal-body" 
   >
-    <!-- <app-logs
-      *ngIf="view === 'output'; else elseBlock"
-      [logs]="logs"
-    ></app-logs>
-    <ng-template #elseBlock> -->
-      <app-metrics
-        [name]="step.name"
-        [metrics]="metrics"
-      ></app-metrics>
-    <!-- </ng-template>  -->
+    <app-metrics
+      *ngIf="view === 'metrics'; else elseBlock"
+      [name]="step.name"
+      [metrics]="metrics"
+    ></app-metrics>
+    <ng-template #elseBlock>
+      <app-logs
+        *ngIf="view === 'output'; else elseBlock"
+        [logs]="logs"
+      ></app-logs>
+    </ng-template> 
   </div>
   <div class="terminal-footer">
     <button (click)="showOutput()">Output</button>

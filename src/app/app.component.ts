@@ -43,22 +43,25 @@ export class AppComponent implements OnInit {
   selectedStep = {};
   logs = [];
   metrics = {
-    memory: [],
-    cpu: [],
+    memory: {
+      usage: [],
+      time: [],
+    },
+    cpu: {
+      usage: [],
+      time: [],
+    },
   };
 
   
   selectStep(id) {
     this.logs = getLog(id.name, stepsLogs[id.name]);
-    console.log('FILL1', this.metrics);
     const memory = getMemoryMetrics(id.name, stepsMemory[id.name]);
     const cpu = getCPUMetrics(id.name, stepsCPU[id.name]);
     this.metrics = {
       cpu,
       memory,
     };
-    console.log('FILL2', this.metrics);
-
     this.selectedStep = id;
     this.isOpen = true;
   }
@@ -78,7 +81,6 @@ export class AppComponent implements OnInit {
         } = steps[i];
         const { memory, cpu } = metrics;
         stepsLogs[name] = logs;
-        // console.log(memory);
         stepsMemory[name] = memory;
         stepsCPU[name] = cpu;
         this.stages[j].steps.push({name, status})

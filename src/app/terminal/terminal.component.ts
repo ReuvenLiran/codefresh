@@ -9,10 +9,7 @@ export class TerminalComponent implements OnChanges {
   @Input() isOpen;
   @Input() step;
   @Input() logs = [];
-  @Input() metrics = {
-    memory: [],
-    cpu: [],
-  };
+  @Input() metrics;
 
   @Output() closeTerminal = new EventEmitter();
 
@@ -25,7 +22,12 @@ export class TerminalComponent implements OnChanges {
       cpu,
       memory,
     } = this.metrics;
-    return cpu.length > 0 || memory.length > 0;
+    // console.log(this.metrics);
+    const hasMemory = memory.usage.length > 0 && 
+                      memory.time.length > 0;
+    const hasCPU = cpu.usage.length > 0 && 
+                    cpu.time.length > 0;
+    return hasCPU || hasMemory;
   }
   close() {
     this.closeTerminal.emit();
@@ -40,13 +42,14 @@ export class TerminalComponent implements OnChanges {
   ngOnChanges(changes) {
     const { metrics } = changes;
     if (metrics) {
-      const {
-        currentValue: {
-          cpu,
-          memory,
-        },
-      } = metrics;
-      if (cpu.length  === 0 && memory.length  === 0) {
+      // const {
+      //   currentValue: {
+      //     cpu,
+      //     memory,
+      //   },
+      // } = metrics;
+      if (!this.hasMetrics) {
+      // if (cpu.length  === 0 && memory.length  === 0) {
         this.showOutput();
       }
     } else {

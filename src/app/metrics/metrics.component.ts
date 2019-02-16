@@ -13,9 +13,7 @@ export class MetricsComponent
   constructor() { }
 
   ngOnChanges(changes) {
-    // console.log(changes)
   }
   ngOnInit() {
-    console.log(this)
   }
 }

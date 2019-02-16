@@ -3,9 +3,10 @@ import {
   ViewEncapsulation,
   Input,
   OnInit, 
-  OnChanges 
+  OnChanges,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
-import MG from 'metrics-graphics';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -16,6 +17,7 @@ import { Chart } from 'chart.js';
 })
 export class MetricsGraphComponent implements OnChanges, OnInit {
   @Input() data = [];
+  @Input() labels = [];
   @Input() yLabel;
   @Input() title;
   @Input() xAccessor;
@@ -23,39 +25,76 @@ export class MetricsGraphComponent implements OnChanges, OnInit {
   @Input() yAccessor;
   target = null;
   chart = [];
-  
-  constructor() { }
+  @ViewChild("ref", {read: ElementRef}) ref: ElementRef;
+  ctx;
 
-  ngOnChanges(changes) {
-    this.chart = new Chart('canvas', {
+  constructor(private _elementRef : ElementRef) { }
+
+  ngAfterViewInit(): void {
+    const domElem = this.ref.nativeElement;
+    this.ctx = domElem.getContext('2d');
+    this.chart = this.ctx ? this.setupChart(this.ctx) : [];
+  }
+
+  setupChart(ctx) {
+    let max;
+    let min = max = this.data[0];
+    console.log({
+      min,
+      max,
+    });
+    this.data.forEach((i) => {
+      if (i < min) {
+        min = i;
+      }
+      if (i > max) {
+        max = i;
+      }
+    });
+    const diff = max - min;
+
+    const newDiff = diff / 3;
+    const num = newDiff.toFixed().toString().length;
+    let finalNum = "";
+    for (let i = 0; i < num - 1; i++) {
+      finalNum += "0";
+    }
+    const lastNum1 = Number(`1${finalNum}`);
+
+    // console.log(lastNum1)
+    console.log(Math.ceil(newDiff/lastNum1)*lastNum1)
+    const OPTIONS = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          display: true
+        }],
+        yAxes: [{
+          display: true,
+          ticks: {
+            stepSize:  Math.ceil(newDiff/lastNum1)*lastNum1,
+          }, 
+        }]
+      }
+    }; 
+    return new Chart(ctx, {
       type: 'line',
       data: {
-        labels: this.data.time,
+        labels: this.labels,
         datasets: [{
-            data: this.data.usage,
-            // borderColor: '#ffcc00',
+            data: this.data,
             fill: true
           },
         ]
       },
-      options: {
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [{
-            display: true,
-            ticks: {
-              stepSize: 100,
-            }, 
-          }]
-        }
-      }
+      options: OPTIONS,
     });
+  }
+  ngOnChanges(changes) {
+    this.chart = this.ctx ? this.setupChart(this.ctx) : [];
   }
   ngOnInit() {}
 }
