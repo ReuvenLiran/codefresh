@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import MG from 'metrics-graphics';
 import data from './json';
-import { getLog } from './utils';
+import { getLog, getMemoryMetrics } from './utils';
 
 const { steps } = data;
 
@@ -22,6 +22,7 @@ const STAGE3 = {
 };
 
 let stepsLogs = {};
+let stepsMemory = {};
 
 @Component({
   selector: 'app-root',
@@ -41,6 +42,8 @@ export class AppComponent implements OnInit {
   
   selectStep(id) {
     this.logs = getLog(id.name, stepsLogs[id.name]);
+    this.chartData = getMemoryMetrics(id.name, stepsMemory[id.name]);
+    console.log(this.chartData);
     this.selectedStep = id;
     this.isOpen = true;
   }
@@ -49,35 +52,39 @@ export class AppComponent implements OnInit {
     this.isOpen = false;
   }
 
-  setupChart() {
-    const DATA = {
-      "-LW_olZmz-8_76n4N5At": { time: 1547896559945, usage: 75247616 },
-      "-LW_om9_CBEdiyNlzzA3": { time: 1547896562360, usage: 168566784 },
-      "-LW_omdvdwiYdVOrEj12": { time: 1547896564370, usage: 245448704 },
-      "-LW_on8ktR_MNZmQOnRV": { time: 1547896566407, usage: 315895808 },
-      "-LW_onsJrx1Ums3lgPR3": { time: 1547896569386, usage: 90501120 }
-    };
+  
+  // setupChart() {
+  //   const DATA = {
+  //     "-LW_olZmz-8_76n4N5At": { time: 1547896559945, usage: 75247616 },
+  //     "-LW_om9_CBEdiyNlzzA3": { time: 1547896562360, usage: 168566784 },
+  //     "-LW_omdvdwiYdVOrEj12": { time: 1547896564370, usage: 245448704 },
+  //     "-LW_on8ktR_MNZmQOnRV": { time: 1547896566407, usage: 315895808 },
+  //     "-LW_onsJrx1Ums3lgPR3": { time: 1547896569386, usage: 90501120 }
+  //   };
 
 
-    const [_, { time: firstTime }] = Object.entries(DATA)[0];
-    this.chartData = Object.entries(DATA).map(([_, d], i) => {
-      return ({
-        time: (d.time - firstTime) / 1000, 
-        usage: d.usage / 1000000,
-      });
-    });
-  }
+  //   const [_, { time: firstTime }] = Object.entries(DATA)[0];
+  //   this.chartData = Object.entries(DATA).map(([_, d], i) => {
+  //     return ({
+  //       time: (d.time - firstTime) / 1000, 
+  //       usage: d.usage / 1000000,
+  //     });
+  //   });
+  // }
   
   ngOnInit() {
-    console.log(MG);
-    this.setupChart();
+    // this.setupChart();
     const addStepToStage = (j, i) => {
       setTimeout(() => {
         const {
           logs,
           name,
+          metrics = {},
         } = steps[i];
+        const { memory } = metrics;
         stepsLogs[name] = logs;
+        // console.log(memory);
+        stepsMemory[name] = memory;
         this.stages[j].steps.push({name})
       }, (i + 1) * 500)
     }

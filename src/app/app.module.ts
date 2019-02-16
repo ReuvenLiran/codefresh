@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MG } from 'metrics-graphics';
 
 import { AppComponent } from './app.component';
 import { StepComponent } from './step/step.component';
@@ -8,8 +7,15 @@ import { StepsListComponent } from './steps-list/steps-list.component';
 import { StageComponent } from './stage/stage.component';
 import { TerminalComponent } from './terminal/terminal.component';
 import { InlineStepComponent } from './inline-step/inline-step.component';
-import { LogComponent } from './log/log.component';
+import {
+  MetricsGraphComponent
+} from './generic-components';
+import {
+    LogsComponent, 
+    LogComponent
+  } from './logs';
 import { MetricsComponent } from './metrics/metrics.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +25,8 @@ import { MetricsComponent } from './metrics/metrics.component';
     StageComponent,
     TerminalComponent,
     InlineStepComponent,
+    MetricsGraphComponent,
+    LogsComponent,
     LogComponent,
     MetricsComponent,
   ],
