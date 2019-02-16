@@ -84,7 +84,7 @@ export const getCPUMetrics = (step, cpuUsage) => {
 }
 
 const formatSecondsToTime = (secs) => {
-  const sec_num = parseInt(secs, 10); // don't forget the second param
+  const sec_num = parseInt(secs, 10);
   const hoursVal   = Math.floor(sec_num / 3600);
   const minutesVal = Math.floor((sec_num - (hoursVal * 3600)) / 60);
   const secondsVal = sec_num - (hoursVal * 3600) - (minutesVal * 60);

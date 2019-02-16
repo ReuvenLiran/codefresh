@@ -22,11 +22,8 @@ export class TerminalComponent implements OnChanges {
       cpu,
       memory,
     } = this.metrics;
-    // console.log(this.metrics);
-    const hasMemory = memory.usage.length > 0 && 
-                      memory.time.length > 0;
-    const hasCPU = cpu.usage.length > 0 && 
-                    cpu.time.length > 0;
+    const hasMemory = memory.usage.length > 0 && memory.time.length > 0;
+    const hasCPU = cpu.usage.length > 0 && cpu.time.length > 0;
     return hasCPU || hasMemory;
   }
   close() {
@@ -41,17 +38,8 @@ export class TerminalComponent implements OnChanges {
 
   ngOnChanges(changes) {
     const { metrics } = changes;
-    if (metrics) {
-      // const {
-      //   currentValue: {
-      //     cpu,
-      //     memory,
-      //   },
-      // } = metrics;
-      if (!this.hasMetrics) {
-      // if (cpu.length  === 0 && memory.length  === 0) {
+    if (metrics && !this.hasMetrics) {
         this.showOutput();
-      }
     } else {
       this.showOutput();
     }

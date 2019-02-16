@@ -32,7 +32,6 @@ import {
   ],
   imports: [
     BrowserModule
-    // MG
   ],
   providers: [],
   bootstrap: [AppComponent]

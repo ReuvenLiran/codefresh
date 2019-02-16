@@ -15,19 +15,3 @@ export default step => {
       return COGS_ICON;
   }
 }
-
-// export default {
-//   "Initializing Process": "",
-//   "main_clone": GIT_ICON,
-//   "install_dependencies": "",
-//   "calculate_version": "",
-//   "eslint": "",
-//   "test": "",
-//   "build": "",
-//   "push": "",
-//   "push_latest": "",
-//   "test_reporting_step": "",
-//   "create_git_tag": "",
-//   "release_binaries": "",
-//   "build_binaries": "",
-// }
