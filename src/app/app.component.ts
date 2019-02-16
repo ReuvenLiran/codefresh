@@ -4,7 +4,7 @@ import data from './json';
 import { 
   getLog, 
   getCPUMetrics,
-  getMemoryMetrics
+  getMemoryMetrics,
 } from './utils';
 
 const { steps } = data;
@@ -32,7 +32,6 @@ let stepsCPU = {};
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./app.component.scss']
 })
 
@@ -51,8 +50,14 @@ export class AppComponent implements OnInit {
   
   selectStep(id) {
     this.logs = getLog(id.name, stepsLogs[id.name]);
-    this.metrics.memory = getMemoryMetrics(id.name, stepsMemory[id.name]);
-    this.metrics.cpu = getCPUMetrics(id.name, stepsCPU[id.name]);
+    console.log('FILL1', this.metrics);
+    const memory = getMemoryMetrics(id.name, stepsMemory[id.name]);
+    const cpu = getCPUMetrics(id.name, stepsCPU[id.name]);
+    this.metrics = {
+      cpu,
+      memory,
+    };
+    console.log('FILL2', this.metrics);
 
     this.selectedStep = id;
     this.isOpen = true;
@@ -68,6 +73,7 @@ export class AppComponent implements OnInit {
         const {
           logs,
           name,
+          status,
           metrics = {},
         } = steps[i];
         const { memory, cpu } = metrics;
@@ -75,7 +81,7 @@ export class AppComponent implements OnInit {
         // console.log(memory);
         stepsMemory[name] = memory;
         stepsCPU[name] = cpu;
-        this.stages[j].steps.push({name})
+        this.stages[j].steps.push({name, status})
       }, (i + 1) * 500)
     }
     let j = 0;

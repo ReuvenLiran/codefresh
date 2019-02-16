@@ -8,13 +8,13 @@ import { StageComponent } from './stage/stage.component';
 import { TerminalComponent } from './terminal/terminal.component';
 import { InlineStepComponent } from './inline-step/inline-step.component';
 import {
-  MetricsGraphComponent
-} from './generic-components';
-import {
     LogsComponent, 
     LogComponent
   } from './logs';
-import { MetricsComponent } from './metrics/metrics.component';
+import {
+   MetricsComponent, 
+   MetricsGraphComponent,
+} from './metrics';
 
 
 @NgModule({

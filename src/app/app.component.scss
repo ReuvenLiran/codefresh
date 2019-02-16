@@ -1,8 +1,15 @@
 .container {
   height: 100vh;
+  overflow: auto;
   position: relative;
 }
 .stages {
   display: flex;
   justify-content: space-evenly;
+  &.terminal-open {
+    height: calc(100vh + 300px);
+  }
+  &.terminal-close {
+    height: 100vh;
+  }
 }

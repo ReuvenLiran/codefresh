@@ -7,14 +7,13 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class MetricsComponent 
   implements OnInit, OnChanges {
-  @Input() memory;
   @Input() metrics;
-  @Input() cpu;
+  @Input() name;
 
   constructor() { }
 
   ngOnChanges(changes) {
-    console.log(changes)
+    // console.log(changes)
   }
   ngOnInit() {
     console.log(this)

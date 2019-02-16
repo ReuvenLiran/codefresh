@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="stages">
+  <div class="stages  {{ isOpen ? 'terminal-open' : 'terminal-close' }}">
     <app-steps-list 
       *ngFor="let stage of stages"
       [stage]="stage.stage"

@@ -1,5 +1,6 @@
 import { DomSanitizer } from '@angular/platform-browser';
 import AnsiUp from 'ansi_up';
+import { totalmem } from 'os';
 
 const formatLog = logs => {
   const ansi_up = new AnsiUp();
@@ -26,13 +27,22 @@ const formatMemoryMetrics = memoryUsage => {
 
   const memoryUsageArr =  Object.entries(memoryUsage);
   const [_, { time: firstTime }] = memoryUsageArr[0];
-  const result =  memoryUsageArr.map(([_, d]) => {
-    const { time, usage } = d;
-    return ({
-      time: (time - firstTime) / 1000, 
-      usage: usage / 1000000,
-    });
-  });
+  // const result =  memoryUsageArr.map(([_, d]) => {
+  //   const { time, usage } = d;
+  //   return ({
+  //     time: formatSecondsToTime((time - firstTime) / 1000), 
+  //     usage: usage / 1000000,
+  //   });
+  // });
+  const result = memoryUsageArr.reduce((total, [_, d]) => {
+    const {
+      usage, 
+      time,
+    } = d;
+    total.usage.push(usage / 1000000);
+    total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
+    return total;
+  }, { usage: [], time: [] });
   return result;
 };
 
@@ -52,13 +62,22 @@ const formatCPUMetrics = cpuUsage => {
 
   const cpuUsageArr =  Object.entries(cpuUsage);
   const [_, { time: firstTime }] = cpuUsageArr[0];
-  const result =  cpuUsageArr.map(([_, d]) => {
-    const { time, usage } = d;
-    return ({
-      time: (time - firstTime) / 1000, 
-      usage,
-    });
-  });
+  const result = cpuUsageArr.reduce((total, [_, d]) => {
+    const {
+      usage, 
+      time,
+    } = d;
+    total.usage.push(usage);
+    total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
+    return total;
+  }, { usage: [], time: [] });
+  // const result =  cpuUsageArr.map(([_, d]) => {
+  //   const { time, usage } = d;
+  //   return ({
+  //     time: (time - firstTime) / 1000, 
+  //     usage,
+  //   });
+  // });
   return result;
 };
 
@@ -70,3 +89,19 @@ export const getCPUMetrics = (step, cpuUsage) => {
   }
   return hashCPU[step];
 }
+
+const formatSecondsToTime = (secs) => {
+  const sec_num = parseInt(secs, 10); // don't forget the second param
+  const hoursVal   = Math.floor(sec_num / 3600);
+  const minutesVal = Math.floor((sec_num - (hoursVal * 3600)) / 60);
+  const secondsVal = sec_num - (hoursVal * 3600) - (minutesVal * 60);
+
+  let hours = hoursVal.toString(),
+      minutes = minutesVal.toString(),
+      seconds = secondsVal.toString();
+
+  if (hoursVal   < 10) {hours   = "0"+hours;}
+  if (minutesVal < 10) {minutes = "0"+minutes;}
+  if (secondsVal < 10) {seconds = "0"+seconds;}
+  return hours+':'+minutes+':'+seconds;
+};

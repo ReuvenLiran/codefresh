@@ -9,18 +9,21 @@
   <div
     class="terminal-body" 
   >
-    <app-logs
+    <!-- <app-logs
       *ngIf="view === 'output'; else elseBlock"
       [logs]="logs"
     ></app-logs>
-    <ng-template #elseBlock>
+    <ng-template #elseBlock> -->
       <app-metrics
+        [name]="step.name"
         [metrics]="metrics"
       ></app-metrics>
-    </ng-template>
+    <!-- </ng-template>  -->
   </div>
   <div class="terminal-footer">
     <button (click)="showOutput()">Output</button>
-    <button (click)="showMetrics()">Metrics</button>
+    <button
+      *ngIf="hasMetrics" 
+      (click)="showMetrics()">Metrics</button>
   </div>
 </div>
