@@ -36,13 +36,10 @@ export class MetricsGraphComponent implements OnChanges, OnInit {
     this.chart = this.ctx ? this.setupChart(this.ctx) : [];
   }
 
-  setupChart(ctx) {
+  getMaxMin() {
     let max;
     let min = max = this.data[0];
-    console.log({
-      min,
-      max,
-    });
+   
     this.data.forEach((i) => {
       if (i < min) {
         min = i;
@@ -51,18 +48,30 @@ export class MetricsGraphComponent implements OnChanges, OnInit {
         max = i;
       }
     });
+    return ({
+      max,
+      min,
+    });
+  }
+  getStepSize() {
+    const NUM_STEPS = 3;
+    const { max, min } = this.getMaxMin();
     const diff = max - min;
 
-    const newDiff = diff / 3;
+    const newDiff = diff / NUM_STEPS;
     const num = newDiff.toFixed().toString().length;
-    let finalNum = "";
+    let zeros = "";
     for (let i = 0; i < num - 1; i++) {
-      finalNum += "0";
+      zeros += "0";
     }
-    const lastNum1 = Number(`1${finalNum}`);
+    const roundBy = Number(`1${zeros}`);
+    const stepSize = Math.ceil(newDiff/roundBy)*roundBy;
+    return stepSize;
+  }
 
-    // console.log(lastNum1)
-    console.log(Math.ceil(newDiff/lastNum1)*lastNum1)
+  setupChart(ctx) {
+    const stepSize = this.getStepSize();  
+   
     const OPTIONS = {
       maintainAspectRatio: false,
       legend: {
@@ -75,7 +84,7 @@ export class MetricsGraphComponent implements OnChanges, OnInit {
         yAxes: [{
           display: true,
           ticks: {
-            stepSize:  Math.ceil(newDiff/lastNum1)*lastNum1,
+            stepSize,
           }, 
         }]
       }

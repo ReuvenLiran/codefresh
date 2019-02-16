@@ -1,6 +1,4 @@
-import { DomSanitizer } from '@angular/platform-browser';
 import AnsiUp from 'ansi_up';
-import { totalmem } from 'os';
 
 const formatLog = logs => {
   const ansi_up = new AnsiUp();
@@ -13,6 +11,7 @@ const formatLog = logs => {
   return html;
 };
 
+
 let hashLogs = {};
 
 export const getLog = (step, logs) => {
@@ -21,21 +20,20 @@ export const getLog = (step, logs) => {
   }
   return hashLogs[step];
 }
+interface metricType {
+  time: number;
+  usage: number;
+};
+type metricRow = [string, metricType];
+type metricRowArr = Array<metricRow>;
 
 const formatMemoryMetrics = memoryUsage => {
   const DEFAULT = { usage: [], time: [] }
   if (!memoryUsage) return DEFAULT;
 
-  const memoryUsageArr =  Object.entries(memoryUsage);
+  const memoryUsageArr: metricRowArr =  Object.entries(memoryUsage);
   const [_, { time: firstTime }] = memoryUsageArr[0];
-  // const result =  memoryUsageArr.map(([_, d]) => {
-  //   const { time, usage } = d;
-  //   return ({
-  //     time: formatSecondsToTime((time - firstTime) / 1000), 
-  //     usage: usage / 1000000,
-  //   });
-  // });
-  const result = memoryUsageArr.reduce((total, [_, d]) => {
+  const result = memoryUsageArr.reduce((total, [_, d]: metricRow) => {
     const {
       usage, 
       time,
@@ -57,14 +55,13 @@ export const getMemoryMetrics = (step, memoryUsage) => {
 }
 
 
-
 const formatCPUMetrics = cpuUsage => {
   const DEFAULT = { usage: [], time: [] }
   if (!cpuUsage) return DEFAULT;
 
-  const cpuUsageArr =  Object.entries(cpuUsage);
+  const cpuUsageArr: metricRowArr =  Object.entries(cpuUsage);
   const [_, { time: firstTime }] = cpuUsageArr[0];
-  const result = cpuUsageArr.reduce((total, [_, d]) => {
+  const result = cpuUsageArr.reduce((total, [_, d]: metricRow) => {
     const {
       usage, 
       time,
@@ -73,15 +70,9 @@ const formatCPUMetrics = cpuUsage => {
     total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
     return total;
   }, DEFAULT);
-  // const result =  cpuUsageArr.map(([_, d]) => {
-  //   const { time, usage } = d;
-  //   return ({
-  //     time: (time - firstTime) / 1000, 
-  //     usage,
-  //   });
-  // });
   return result;
 };
+
 
 let hashCPU = {};
 

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import MG from 'metrics-graphics';
 import data from './json';
 import { 
   getLog, 
