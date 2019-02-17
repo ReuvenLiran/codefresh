@@ -6,6 +6,19 @@
   }
   &.terminal {
     display: flex;
+    align-items: center;
+    padding: 8px;
+    $height: 35px;
+    .step-img {
+      height: $height;
+      width: $height;
+    }
+    .step-text {
+      height: $height;
+      h6 {
+        font-size: 18px;
+      }
+    }
   }
 
   .step-img {
@@ -13,6 +26,9 @@
     width: 30px;
   }
   .step-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     h6 {
       margin: 0;
       padding: 0;

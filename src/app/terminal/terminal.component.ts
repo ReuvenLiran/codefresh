@@ -13,7 +13,7 @@ export class TerminalComponent implements OnChanges {
 
   @Output() closeTerminal = new EventEmitter();
 
-  view = 'output';
+  view = 'metrics';
 
   constructor() { }
 
@@ -38,10 +38,9 @@ export class TerminalComponent implements OnChanges {
 
   ngOnChanges(changes) {
     const { metrics } = changes;
-    if (metrics && !this.hasMetrics) {
+    const noMetrics = (metrics && !this.hasMetrics) || !metrics;
+    if (noMetrics) {
         this.showOutput();
-    } else {
-      this.showOutput();
     }
   }
 }

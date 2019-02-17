@@ -18,13 +18,11 @@ import { Chart } from 'chart.js';
 export class MetricsGraphComponent implements OnChanges, OnInit {
   @Input() data = [];
   @Input() labels = [];
-  @Input() yLabel;
   @Input() title;
-  @Input() xAccessor;
+  @Input() yAxesLabel;
   @Input() id;
-  @Input() yAccessor;
-  target = null;
   chart = [];
+
   @ViewChild("ref", {read: ElementRef}) ref: ElementRef;
   ctx;
 
@@ -79,9 +77,13 @@ export class MetricsGraphComponent implements OnChanges, OnInit {
       },
       scales: {
         xAxes: [{
-          display: true
+          display: true,
         }],
         yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: this.yAxesLabel,
+          },
           display: true,
           ticks: {
             stepSize,

@@ -1,12 +1,13 @@
-<!-- <div>
-  <div [id]="id"></div>
-</div> -->
-
-
 <div 
-  class="chart"
+  class="metric-graph"
   *ngIf="chart">
-    <canvas  
-     #ref
-    [id]="id">{{ chart }}</canvas>
+    <h4>{{ title }}</h4>
+    <div>
+      <canvas  
+        #ref
+       [id]="id"
+      >
+      {{ chart }}
+      </canvas>
+    </div>
 </div>

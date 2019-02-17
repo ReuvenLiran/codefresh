@@ -22,9 +22,18 @@
     </ng-template> 
   </div>
   <div class="terminal-footer">
-    <button (click)="showOutput()">Output</button>
+    <button 
+      class="{{ view === 'output' && 'active' }}"
+      (click)="showOutput()"
+    >
+      Output
+    </button>
     <button
+      class="{{ view === 'metrics' && 'active' }}"
       *ngIf="hasMetrics" 
-      (click)="showMetrics()">Metrics</button>
+      (click)="showMetrics()"
+    >
+      Metrics
+    </button>
   </div>
 </div>

@@ -53,15 +53,18 @@ export class AppComponent implements OnInit {
   };
 
   
-  selectStep(id) {
-    this.logs = getLog(id.name, stepsLogs[id.name]);
-    const memory = getMemoryMetrics(id.name, stepsMemory[id.name]);
-    const cpu = getCPUMetrics(id.name, stepsCPU[id.name]);
+  selectStep(step) {
+    const {
+      name,
+    } = step;
+    this.logs = getLog(name, stepsLogs[name]);
+    const memory = getMemoryMetrics(name, stepsMemory[name]);
+    const cpu = getCPUMetrics(name, stepsCPU[name]);
     this.metrics = {
       cpu,
       memory,
     };
-    this.selectedStep = id;
+    this.selectedStep = step;
     this.isOpen = true;
   }
 

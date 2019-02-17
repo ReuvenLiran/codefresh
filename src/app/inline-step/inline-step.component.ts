@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import getIcon from './icons';
 
 @Component({
@@ -6,7 +6,7 @@ import getIcon from './icons';
   templateUrl: './inline-step.component.html',
   styleUrls: ['./inline-step.component.scss']
 })
-export class InlineStepComponent implements OnInit {
+export class InlineStepComponent implements OnInit, OnChanges {
   @Input() step;
   @Input() className;
   image;
@@ -14,6 +14,10 @@ export class InlineStepComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.image = getIcon(this.step.name);
+  }
+
+  ngOnChanges() {
     this.image = getIcon(this.step.name);
   }
 }
