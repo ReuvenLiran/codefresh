@@ -3,9 +3,13 @@
   overflow: auto;
   position: relative;
 }
+
+app-steps-list {
+  width: 33%;
+}
 .stages {
   display: flex;
-  justify-content: space-evenly;
+  // justify-content: space-evenly;
   &.terminal-open {
     height: calc(100vh + 300px);
   }

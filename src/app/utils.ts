@@ -39,7 +39,9 @@ const formatMemoryMetrics = memoryUsage => {
       time,
     } = d;
     total.usage.push(usage / 1000000);
-    total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
+    const secsDiff = (time - firstTime) / 1000;
+    const formattedTime = formatSecondsToTime(secsDiff, 'hh:mm:ss')
+    total.time.push(formattedTime);
     return total;
   }, DEFAULT);
   return result;
@@ -67,7 +69,9 @@ const formatCPUMetrics = cpuUsage => {
       time,
     } = d;
     total.usage.push(usage);
-    total.time.push(formatSecondsToTime((time - firstTime) / 1000,));
+    const secsDiff = (time - firstTime) / 1000;
+    const formattedTime = formatSecondsToTime(secsDiff, 'hh:mm:ss')
+    total.time.push(formattedTime);
     return total;
   }, DEFAULT);
   return result;
@@ -83,7 +87,7 @@ export const getCPUMetrics = (step, cpuUsage) => {
   return hashCPU[step];
 }
 
-const formatSecondsToTime = (secs) => {
+const formatSecondsToFormat2 = (secs) => {
   const sec_num = parseInt(secs, 10);
   const hoursVal   = Math.floor(sec_num / 3600);
   const minutesVal = Math.floor((sec_num - (hoursVal * 3600)) / 60);
@@ -97,4 +101,41 @@ const formatSecondsToTime = (secs) => {
   if (minutesVal < 10) {minutes = "0"+minutes;}
   if (secondsVal < 10) {seconds = "0"+seconds;}
   return hours+':'+minutes+':'+seconds;
+};
+
+const formatSecondsToFormat1 = secs => {
+  console.log('formatSecondsToFormat1', secs);
+  const sec_num = parseInt(secs, 10);
+  const hoursVal   = Math.floor(sec_num / 3600);
+  const minutesVal = Math.floor((sec_num - (hoursVal * 3600)) / 60);
+  const secondsVal = sec_num - (hoursVal * 3600) - (minutesVal * 60);
+
+  if (secs === 0) {
+    return '1s';
+  }
+
+  let result = "";
+  if (hoursVal > 0) {
+    const hours =  hoursVal.toString() + 'h';
+    result += `${hours} `;
+  }
+
+  if (minutesVal > 0) {
+    const minutes =  minutesVal.toString() + 'm';
+    result += `${minutes} `;
+  }
+  
+  if (secondsVal > 0) {
+    const seconds =  secondsVal.toString() + 's';
+    result += seconds;
+  }  
+  return result;
+}
+
+export const formatSecondsToTime = (secs, format) => {
+  if (format === 'h m s') {
+    return formatSecondsToFormat1(secs);
+  } else if (format === 'hh:mm:ss') {
+    return formatSecondsToFormat2(secs);
+  }
 };

@@ -43,11 +43,13 @@
   margin-bottom: 20px;
   animation: fade-in 0.3s ease-in-out;
 
-
   &.success::before {
     @include status-style(success);
   }
   &.error::before {
     @include status-style(error);
+  }
+  app-inline-step {
+    width: 100%;
   }
 }

@@ -4,6 +4,7 @@ import {
   getLog, 
   getCPUMetrics,
   getMemoryMetrics,
+  formatSecondsToTime,
 } from './utils';
 
 const { steps } = data;
@@ -80,12 +81,22 @@ export class AppComponent implements OnInit {
           name,
           status,
           metrics = {},
+          creationTimeStamp,
+          finishTimeStamp,
         } = steps[i];
         const { memory, cpu } = metrics;
         stepsLogs[name] = logs;
         stepsMemory[name] = memory;
         stepsCPU[name] = cpu;
-        this.stages[j].steps.push({name, status})
+        const diff = finishTimeStamp - creationTimeStamp;
+        const formattedDuration = formatSecondsToTime(diff, 'h m s');
+        const step = {
+          name,
+          status,
+          duration: formattedDuration,
+        };
+        // console.log(step);
+        this.stages[j].steps.push(step);
       }, (i + 1) * 500)
     }
     let j = 0;
