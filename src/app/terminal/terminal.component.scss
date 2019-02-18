@@ -1,3 +1,5 @@
+@import '../status.scss';
+
 $active: #3e3e3e;
 $bg-terminal-footer: #4e555d;
 
@@ -19,6 +21,8 @@ $bg-terminal-footer: #4e555d;
     display: flex;
     justify-content: space-between;
     color: black;
+    padding: 0 10px;
+ 
     button {
       border: none;
       background-color: transparent;

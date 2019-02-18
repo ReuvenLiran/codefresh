@@ -1,25 +1,5 @@
 @import "../card.scss";
-
-@mixin status-style ($status) {
-  font-family: 'Material Icons';
-  width: 22px;
-  font-size: 11px;
-  text-align: center;
-  line-height: 22px;
-  border-radius: 50%;
-  transform: translateX(-10px);
-  cursor: pointer;
-
-  @if $status == success {
-    content: "done";
-    background-color: #23b4a4;
-    color: #fff;
-  } @else if $status == error {
-    background-color: #e83f43;
-    content: "priority_high";
-    color: #fff;
-  }
-}
+@import "../status.scss";
 
 @keyframes fade-in {
   0% {
@@ -43,12 +23,8 @@
   margin-bottom: 20px;
   animation: fade-in 0.3s ease-in-out;
 
-  &.success::before {
-    @include status-style(success);
-  }
-  &.error::before {
-    @include status-style(error);
-  }
+  @include set-statuses();
+  
   app-inline-step {
     width: 100%;
   }

@@ -1,7 +1,10 @@
 <div class="terminal {{ isOpen ? 'open' : 'close' }}">
-  <div class="terminal-header">
+  <div class="terminal-header {{ step.status }}">
+    <!-- <div class="steo-terminal-header {{ step.status }}">
+      
+    </div> -->
     <app-inline-step 
-      className="terminal"
+      className="terminal {{ step.status }}"
       [step]="step"
     ></app-inline-step>
     <button (click)="close()">X</button>
