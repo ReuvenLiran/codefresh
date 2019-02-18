@@ -1,9 +1,15 @@
-@mixin status-style ($status) {
+@mixin status-style ($status, $size) {
+  @if $size == normal {
+    width: 22px;
+    font-size: 15px;
+    line-height: 22px;
+  } @else if $size == large {
+    width: 28px;
+    font-size: 20px;
+    line-height: 28px;
+  }
   font-family: 'Material Icons';
-  width: 22px;
-  font-size: 15px;
   text-align: center;
-  line-height: 22px;
   border-radius: 50%;
   transform: translateX(-10px);
   cursor: pointer;
@@ -26,7 +32,7 @@
 }
 
 
-@mixin set-statuses() {
+@mixin set-statuses($size) {
   $statuses: (
     'pending',
     'success',
@@ -34,7 +40,7 @@
   );
   @each $status in $statuses {
     &.#{$status}::before {
-      @include status-style($status);
+      @include status-style($status, $size);
     }
   } 
 }

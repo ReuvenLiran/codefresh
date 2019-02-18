@@ -23,8 +23,7 @@
   margin-bottom: 20px;
   animation: fade-in 0.3s ease-in-out;
 
-  @include set-statuses();
-  
+  @include set-statuses(normal);
   app-inline-step {
     width: 100%;
   }
