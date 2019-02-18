@@ -1,5 +1,12 @@
-<li class="stage-item">
-  <div class="card stage">
-      {{ stage }}
-  </div>
-</li> 
+<ul class="stage">
+  <app-stage-header
+    [isFinal]="isFinal"
+    [stage]="stage"
+  ></app-stage-header>
+  <app-step
+    *ngFor="let step of steps" 
+    [step]="step"
+    (selectStep)="selectStep1($event)"
+  >
+  </app-step>
+</ul>

@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { text } from '@angular/core/src/render3';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 
 @Component({
   selector: 'app-stage',
@@ -7,15 +6,17 @@ import { text } from '@angular/core/src/render3';
   styleUrls: ['./stage.component.scss']
 })
 export class StageComponent implements OnInit {
+  @Input() steps;
   @Input() stage;
   @Input() isFinal;
-  icon = "->";
+  @Output() selectStep = new EventEmitter();
+
   constructor() { }
 
-  ngOnInit() {
-    if (this.isFinal) {
-      this.icon = null;
-    } 
+  selectStep1(name) {
+    this.selectStep.emit(name);
   }
 
+  ngOnInit() {
+  }
 }

@@ -1,0 +1,11 @@
+@import "../card.scss";
+
+.stage-header {
+  margin-left: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,.13);
+  .card {
+    padding: 21px 10px;
+  }
+}

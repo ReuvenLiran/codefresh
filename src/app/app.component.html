@@ -1,13 +1,13 @@
 <div class="container">
   <div class="stages  {{ isOpen ? 'terminal-open' : 'terminal-close' }}">
-    <app-steps-list 
+    <app-stage 
       *ngFor="let stage of stages"
       [stage]="stage.stage"
       [isFinal]="stage.isFinal"
       [steps]="stage.steps"
       (selectStep)="selectStep($event)"
     >
-    </app-steps-list>
+    </app-stage>
   </div>
   <app-terminal 
     [step]="selectedStep"
