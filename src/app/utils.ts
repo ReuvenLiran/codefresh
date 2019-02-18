@@ -104,7 +104,6 @@ const formatSecondsToFormat2 = (secs) => {
 };
 
 const formatSecondsToFormat1 = secs => {
-  console.log('formatSecondsToFormat1', secs);
   const sec_num = parseInt(secs, 10);
   const hoursVal   = Math.floor(sec_num / 3600);
   const minutesVal = Math.floor((sec_num - (hoursVal * 3600)) / 60);
