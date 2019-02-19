@@ -4,30 +4,14 @@ import {
   getLog, 
   getCPUMetrics,
   getMemoryMetrics,
-  formatSecondsToTime,
+  formatStep,
 } from './utils';
+import {
+  STAGES,
+} from './consts';
 
 const { steps } = data;
-
-const STAGE1 = {
-  stage: 'DEFAULT',
-  steps: [],
-  isFinal: false,
-};
-const STAGE2 = {
-  stage: 'BUILD&TEST',
-  steps: [],
-  isFinal: false,
-};
-const STAGE3 = {
-  stage: 'RELEASE',
-  steps: [],
-  isFinal: true,
-};
-
-let stepsLogs = {};
-let stepsMemory = {};
-let stepsCPU = {};
+let stepsData = {};
 
 @Component({
   selector: 'app-root',
@@ -35,10 +19,8 @@ let stepsCPU = {};
   styleUrls: ['./app.component.scss']
 })
 
-
 export class AppComponent implements OnInit {
-  title = 'test1';
-  stages = [STAGE1, STAGE2, STAGE3];
+  stages = STAGES;
   isOpen = false;
   selectedStep = {};
   logs = [];
@@ -53,14 +35,18 @@ export class AppComponent implements OnInit {
     },
   };
 
-  
   selectStep(step) {
     const {
       name,
     } = step;
-    this.logs = getLog(name, stepsLogs[name]);
-    const memory = getMemoryMetrics(name, stepsMemory[name]);
-    const cpu = getCPUMetrics(name, stepsCPU[name]);
+    const {
+      logs,
+      memory: memoryData,
+      cpu: cpuData,
+    } = stepsData[name];
+    this.logs = getLog(name, logs);
+    const memory = getMemoryMetrics(name, memoryData);
+    const cpu = getCPUMetrics(name, cpuData);
     this.metrics = {
       cpu,
       memory,
@@ -72,36 +58,21 @@ export class AppComponent implements OnInit {
   closeTerminal() {
     this.isOpen = false;
   }
-  
+
+  addStepToStage(j, i) {
+    const DELAY = 500;
+    setTimeout(() => {
+      const step = formatStep(steps[i]);
+      const { data, ...other } = step;
+      stepsData[step.name] = data;
+      this.stages[j].steps.push(other);
+    }, (i + 1) * DELAY)
+  }
+
   ngOnInit() {
-    const addStepToStage = (j, i) => {
-      setTimeout(() => {
-        const {
-          logs,
-          name,
-          status,
-          metrics = {},
-          creationTimeStamp,
-          finishTimeStamp,
-        } = steps[i];
-        const { memory, cpu } = metrics;
-        stepsLogs[name] = logs;
-        stepsMemory[name] = memory;
-        stepsCPU[name] = cpu;
-        const diff = finishTimeStamp - creationTimeStamp;
-        const formattedDuration = formatSecondsToTime(diff, 'h m s');
-        const step = {
-          name,
-          status,
-          duration: formattedDuration,
-        };
-        // console.log(step);
-        this.stages[j].steps.push(step);
-      }, (i + 1) * 500)
-    }
     let j = 0;
     for (let i = 0; i < steps.length; i++) {
-      addStepToStage(j, i);
+      this.addStepToStage(j, i);
       if (i > 0 && i % 4 === 0) {
         j++;
       }

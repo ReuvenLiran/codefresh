@@ -4,12 +4,12 @@
   position: relative;
 }
 
-app-steps-list {
+app-stage {
   width: 33%;
 }
 .stages {
+  padding: 5px;
   display: flex;
-  // justify-content: space-evenly;
   &.terminal-open {
     height: calc(100vh + 300px);
   }

@@ -1,4 +1,8 @@
 import AnsiUp from 'ansi_up';
+import {
+  H_M_S,
+  HH_MM_SS,
+} from './consts'
 
 const formatLog = logs => {
   const ansi_up = new AnsiUp();
@@ -131,10 +135,33 @@ const formatSecondsToFormat1 = secs => {
   return result;
 }
 
+const TIMES_FORMAT = {
+  [H_M_S]: formatSecondsToFormat1,
+  [HH_MM_SS]: formatSecondsToFormat2,
+}
+
 export const formatSecondsToTime = (secs, format) => {
-  if (format === 'h m s') {
-    return formatSecondsToFormat1(secs);
-  } else if (format === 'hh:mm:ss') {
-    return formatSecondsToFormat2(secs);
-  }
+  const func = TIMES_FORMAT[format];
+  return func(secs);
 };
+
+export const formatStep = (step) =>  {
+  const {
+    logs,
+    name,
+    status,
+    metrics = {},
+    creationTimeStamp,
+    finishTimeStamp,
+  } = step;
+  const { memory, cpu } = metrics;
+  const diff = finishTimeStamp - creationTimeStamp;
+  const formattedDuration = formatSecondsToTime(diff, H_M_S);
+  const newStep = {
+    name,
+    status,
+    duration: formattedDuration,
+    data: { logs, memory, cpu },
+  };
+  return newStep;
+}

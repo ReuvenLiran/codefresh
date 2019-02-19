@@ -1,6 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+// @import "./app/card.scss";
+// @import "./app/status.scss";
+$qqq: red;
+
+@mixin status-style ($status, $size) {
+  @if $size == normal {
+    width: 22px;
+    font-size: 15px;
+    line-height: 22px;
+  } @else if $size == large {
+    width: 28px;
+    font-size: 20px;
+    line-height: 28px;
+  }
+  font-family: 'Material Icons';
+  text-align: center;
+  border-radius: 50%;
+  transform: translateX(-10px);
+  cursor: pointer;
+  flex-shrink: 0;
+  flex-grow: 0;
+  
+  @if $status == success {
+    content: "done";
+    background-color: #23b4a4;
+    color: #fff;
+  } @else if $status == pending {
+    background-color: blue;
+    content: "access_time";
+    color: #fff;
+  } @else if $status == error {
+    background-color: #e83f43;
+    content: "priority_high";
+    color: #fff;
+  }
+}
+
+
+@mixin set-statuses($size) {
+  $statuses: (
+    'pending',
+    'success',
+    'error',
+  );
+  @each $status in $statuses {
+    &.#{$status}::before {
+      @include status-style($status, $size);
+    }
+  } 
+}
 
 body {
   font-family: 'Roboto', sans-serif;
-  // font-size: 48px;
 }

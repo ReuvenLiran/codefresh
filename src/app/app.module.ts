@@ -16,7 +16,6 @@ import {
 } from './terminal';
 import { InlineStepComponent } from './inline-step/inline-step.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

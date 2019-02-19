@@ -12,6 +12,7 @@ export class StepComponent implements OnInit {
   constructor() { }
 
   selectStep1() {
+    console.log('ss')
     this.selectStep.emit(this.step);
   }
 
